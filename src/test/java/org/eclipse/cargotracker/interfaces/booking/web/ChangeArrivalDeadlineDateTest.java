@@ -53,13 +53,21 @@ public class ChangeArrivalDeadlineDateTest {
 
     @Test
     public void testLoadSurfacesMalformedDate() {
-        bookingServiceFacade.cargo = new CargoRouteStub("not a date");
+        assertMalformedDateIsSurfaced("not a date");
+        assertMalformedDateIsSurfaced("02/30/2024");
+        assertMalformedDateIsSurfaced("03/15/2009 extra");
+    }
+
+    private void assertMalformedDateIsSurfaced(String deadline) {
+        bookingServiceFacade.cargo = new CargoRouteStub(deadline);
         changeArrivalDeadlineDate.setTrackingId("ABC123");
 
         try {
             changeArrivalDeadlineDate.load();
             fail("Expected malformed date to be surfaced as an error.");
         } catch (RuntimeException expected) {
+            assertEquals("Error parsing date", expected.getMessage());
+            assertTrue(expected.getCause() instanceof java.text.ParseException);
             assertNull(changeArrivalDeadlineDate.getArrivalDeadlineDate());
         }
     }
