@@ -26,8 +26,7 @@
                                   value="#{changeArrivalDeadlineDate.arrivalDeadlineDate}"
                                   pattern="MM/dd/yyyy"
                                   required="true"
-                                  requiredMessage="An arrival deadline is required."
-                                  p:autofocus="true"/>
+                                  requiredMessage="An arrival deadline is required."/>
                     <p:message for="arrivalDeadline" display="text"/>
                 </h:panelGroup>
 
@@ -38,8 +37,7 @@
 
                 <p:commandButton value="Update"
                                  action="#{changeArrivalDeadlineDate.changeArrivalDeadline()}"
-                                 update="@form"
-                                 oncomplete="window.location.replace(window.location.href);"/>
+                                 update="@form"/>
             </h:panelGrid>
         </h:form>
     </div>
