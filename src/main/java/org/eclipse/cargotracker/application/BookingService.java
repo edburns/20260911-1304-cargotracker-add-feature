@@ -28,4 +28,11 @@ public interface BookingService {
     void assignCargoToRoute(Itinerary itinerary, TrackingId trackingId);
 
     void changeDestination(TrackingId trackingId, UnLocode unLocode);
+
+    /**
+     * Changes the arrival deadline while preserving origin, destination and
+     * itinerary. Delivery and routing state are recalculated by the cargo
+     * aggregate.
+     */
+    void changeDeadline(TrackingId trackingId, Date deadline);
 }
