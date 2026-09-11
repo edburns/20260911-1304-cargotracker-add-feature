@@ -53,6 +53,7 @@ public class ChangeArrivalDeadlineDateTest {
 
     @Test
     public void testLoadSurfacesMalformedDate() {
+        assertMalformedDateIsSurfaced(null);
         assertMalformedDateIsSurfaced("not a date");
         assertMalformedDateIsSurfaced("02/30/2024");
         assertMalformedDateIsSurfaced("03/15/2009 extra");

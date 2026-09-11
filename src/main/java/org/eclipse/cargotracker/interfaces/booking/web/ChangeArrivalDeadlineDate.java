@@ -58,6 +58,9 @@ public class ChangeArrivalDeadlineDate implements Serializable {
 
         try {
             String deadline = cargo.getArrivalDeadlineDate();
+            if (deadline == null) {
+                throw new ParseException("Arrival deadline is missing", 0);
+            }
             SimpleDateFormat formatter = new SimpleDateFormat(FORMAT);
             formatter.setLenient(false);
             ParsePosition position = new ParsePosition(0);
