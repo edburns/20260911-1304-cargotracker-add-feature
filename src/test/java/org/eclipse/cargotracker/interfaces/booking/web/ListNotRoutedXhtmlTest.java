@@ -57,7 +57,10 @@ public class ListNotRoutedXhtmlTest {
 
     private Document loadNotRoutedXhtml() throws ParserConfigurationException,
             SAXException, IOException {
-        File path = new File("src/main/webapp/admin/tables/listNotRouted.xhtml");
-        return DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(path);
+        File path = new File(System.getProperty("basedir", "."),
+                "src/main/webapp/admin/tables/listNotRouted.xhtml");
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setNamespaceAware(true);
+        return factory.newDocumentBuilder().parse(path);
     }
 }
