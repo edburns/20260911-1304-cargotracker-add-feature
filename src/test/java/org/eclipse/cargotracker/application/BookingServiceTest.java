@@ -249,11 +249,17 @@ public class BookingServiceTest {
     @Test
     @InSequence(5)
     public void testChangeDeadline() {
-        Date newDeadline = new Date(deadline.getTime());
         GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTime(newDeadline);
+        calendar.setTime(deadline);
         calendar.add(Calendar.MONTH, 1);
-        newDeadline.setTime(calendar.getTime().getTime());
+        Date newDeadline = calendar.getTime();
+
+        Cargo cargoBeforeDeadlineChange = entityManager
+                .createNamedQuery("Cargo.findByTrackingId", Cargo.class)
+                .setParameter("trackingId", trackingId).getSingleResult();
+        assertEquals(assigned, cargoBeforeDeadlineChange.getItinerary());
+        assertEquals(RoutingStatus.MISROUTED, cargoBeforeDeadlineChange
+                .getDelivery().getRoutingStatus());
 
         bookingService.changeDeadline(trackingId, newDeadline);
 
