@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+    <f:viewParam name="trackingId"
+                 value="#{changeArrivalDeadlineDate.trackingId}"/>
+    <f:viewAction action="#{changeArrivalDeadlineDate.load}"/>
+</f:metadata>
+<h:head>
+    <title>Change Deadline</title>
+</h:head>
+<h:body>
+    <div class="ui-g full-page">
+        <h:form id="changeArrivalDeadlineDateForm">
+            <h:panelGrid columns="2" cellpadding="15">
+                <p:outputLabel value="Origin:" />
+                <p:outputLabel value="#{changeArrivalDeadlineDate.cargo.originName}"/>
+
+                <p:outputLabel value="Destination:"/>
+                <p:outputLabel value="#{changeArrivalDeadlineDate.cargo.finalDestinationName}"/>
+
+                <p:outputLabel for="arrivalDeadline" value="Deadline:"/>
+                <h:panelGroup>
+                    <p:datePicker id="arrivalDeadline"
+                                  value="#{changeArrivalDeadlineDate.arrivalDeadlineDate}"
+                                  pattern="MM/dd/yyyy"
+                                  required="true"
+                                  requiredMessage="An arrival deadline is required."
+                                  p:autofocus="true"/>
+                    <p:message for="arrivalDeadline" display="text"/>
+                </h:panelGroup>
+
+                <p:commandButton value="Cancel"
+                                 action="#{changeArrivalDeadlineDateDialog.cancel()}"
+                                 process="@this"
+                                 immediate="true"/>
+
+                <p:commandButton value="Update"
+                                 action="#{changeArrivalDeadlineDate.changeArrivalDeadline()}"
+                                 update="@form"
+                                 oncomplete="window.location.replace(window.location.href);"/>
+            </h:panelGrid>
+        </h:form>
+    </div>
+</h:body>
+</html>
